@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const generatePasswords = require('./generate_password')
 const app = express()
 const port = 3000
 
@@ -12,8 +13,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  res.render('index')
-  console.log(req.body)
+  const password = generatePasswords(req.body)
+  res.render('index', { password: password })
 })
 
 app.listen(port, () => {
