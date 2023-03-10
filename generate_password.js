@@ -3,7 +3,9 @@ function filterExcludeCharacters(collection, excludeCharacters) {
     collection[key] = collection[key].filter(
       character => !excludeCharacters.includes(character)
     )
+    if (collection[key].length === 0) return false
   }
+  return collection
 }
 
 function randomCharacter(array) {
@@ -41,7 +43,10 @@ function generatePassword(options) {
   }
 
   if (options.excludeCharacters) {
-    filterExcludeCharacters(collection, options.excludeCharacters)
+    collection = filterExcludeCharacters(collection, options.excludeCharacters)
+    if (collection === false) {
+      return 'Not A Valid Selection ! Check Your Options Again !'
+    }
   }
 
   let password = ''
